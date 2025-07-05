@@ -31,6 +31,9 @@ export default function SearchBar({ onPlaceSelected }) {
         textInput: { height: 44, color: '#5d5d5d', fontSize: 16 },
       }}
       debounce={300}
+      predefinedPlaces={[]}
+      // 🚨 THIS LINE prevents your crash:
+      textInputProps={{}} 
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import SearchBar from '../components/SearchBar';
 import HistoryList from '../components/HistoryList';
@@ -33,9 +33,12 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
       <View style={styles.container}>
-        <SearchBar onPlaceSelected={handlePlaceSelect} />
+        <View style={styles.searchContainer}>
+          <SearchBar onPlaceSelected={handlePlaceSelect} />
+        </View>
+
         <MapView
           ref={mapRef}
           style={styles.map}
@@ -54,9 +57,11 @@ export default function HomeScreen() {
             />
           )}
         </MapView>
-        <ScrollView style={styles.historyContainer}>
+
+        <View style={styles.historyContainer}>
           <HistoryList history={history} onSelect={handlePlaceSelect} />
-        </ScrollView>
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -64,6 +69,50 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  map: { flex: 1 },
-  historyContainer: { backgroundColor: '#fff' },
+  searchContainer: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    right: 16,
+    zIndex: 10,
+    borderRadius: 12,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  map: {
+    flex: 0.6,
+    marginTop: 80,
+    marginHorizontal: 11,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  historyHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  historyContainer: {
+    flex: 0.4,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    paddingHorizontal: 16,
+    top:10
+  },
 });
